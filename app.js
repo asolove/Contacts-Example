@@ -34,13 +34,14 @@
 		editContact: function(contact){
 			this.model = contact;
 			this.render();
+			this.$el.find("#name").focus();
 		}
 	});
 
 	var ContactsList = Backbone.View.extend({
 		tagName: "ul",
 	
-		template: "<a class='add'>+ Add another contact</a>",
+		template: _.template("<a class='add'>+ Add another contact</a><span class='count'>You have <span class='number'><%= count %></span> friends.</span>"),
 
 		events: {
 			"click .add": "addContact"
@@ -52,7 +53,7 @@
 
 		render: function(){
 			var el = this.$el;
-			el.html(this.template);
+			el.html(this.template({ count: this.model.length }));
 			this.model.forEach(this.renderOne, this);
 			return this;
 		},
@@ -60,6 +61,7 @@
 		renderOne: function(contact){
 			var view = new ContactsListItem({ model: contact });
 			view.render().$el.appendTo(this.el);
+			this.$(".count .number").text(this.model.length);
 		},
 
 		addContact: function(e){
