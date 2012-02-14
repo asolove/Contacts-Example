@@ -41,7 +41,7 @@
 	var ContactsList = Backbone.View.extend({
 		tagName: "ul",
 	
-		template: _.template("<a class='add'>+ Add another contact</a><span class='count'>You have <span class='number'><%= count %></span> friends.</span>"),
+		template: _.template("<a class='add'>+ Add another contact</a><span class='count'>You have <span class='number'><%= count %></span> friends, <span class='online'>0</span> online.</span>"),
 
 		events: {
 			"click .add": "addContact"
@@ -49,6 +49,7 @@
 
 		initialize: function(){
 			this.model.bind("add", this.renderOne, this);
+			this.model.bind("change:online", this.renderOnline, this);
 		},
 
 		render: function(){
@@ -64,6 +65,11 @@
 			this.$(".count .number").text(this.model.length);
 		},
 
+		renderOnline: function(model, online){
+			var online = this.model.filter(function(m){ return m.get("online"); }).length;
+			this.$(".count .online").text(online);
+		},
+
 		addContact: function(e){
 			var contact = new Contact;
 			contacts.add(contact);
@@ -75,6 +81,7 @@
 	var ContactsListItem = Backbone.View.extend({
 		initialize: function(){
 			this.model.bind("change:name", this.nameChanged, this);
+			this.model.bind("change:online", this.onlineChanged, this);
 		},
 
 		events: {
@@ -94,6 +101,10 @@
 			this.$el.find(".name").text(this.model.get("name"));
 		},
 
+		onlineChanged: function(model, online){
+			this.$el[online ? "addClass" : "removeClass"]("online");
+		},
+
 		editContact: function(e){
 			e.preventDefault();
 			contactDetails.editContact(this.model);	
@@ -109,6 +120,12 @@
 		contactsList.render();
 		contactDetails = new ContactDetails({el: $("#contactDetails"), model: contacts.at(0) });
 		contactDetails.render();
+
+		// Fake WebSocket changes from push server...
+		setInterval(function(){
+			var contact = contacts.at(Math.floor(Math.random() * contacts.length));
+			contact.set("online", !contact.get("online"));
+		}, 1500);
 	});
 	
 })();

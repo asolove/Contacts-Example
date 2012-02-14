@@ -24,6 +24,11 @@ body {
 #contactsList li {
 	border-bottom: 1px solid #ccc;
 	padding: 10px;
+	-webkit-transition: all 1s fade-in-out;
+}
+
+#contactsList li.online {
+	background-color: #ff9;
 }
 
 #contactsList .count {
