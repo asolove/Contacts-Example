@@ -1,3 +1,8 @@
+body {
+	font: 14px/1.5 georgia;
+	color: #444;
+}
+
 #contactsList {
 	position: absolute;
 	left: 20px;
@@ -14,4 +19,10 @@
 	width: 400px;
 	height: 500px;
 	border: 1px solid #ccc;
+}
+
+#contactDetails label,
+#contactDetails input,
+#contactDetails textarea {
+	display: block;
 }
