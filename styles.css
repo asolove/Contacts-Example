@@ -1,0 +1,17 @@
+#contactsList {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 200px;
+	height: 500px;
+	border: 1px solid #ccc;
+}
+
+#contactDetails {
+	position: absolute;
+	left: 240px;
+	top: 20px;
+	width: 400px;
+	height: 500px;
+	border: 1px solid #ccc;
+}
