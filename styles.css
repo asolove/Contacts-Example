@@ -1,3 +1,8 @@
+* {
+	margin: 0; padding: 0;
+}
+
+
 body {
 	font: 14px/1.5 georgia;
 	color: #444;
@@ -12,17 +17,35 @@ body {
 	border: 1px solid #ccc;
 }
 
+#contactsList {
+	list-style-type: none;
+}
+
+#contactsList li {
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+}
+
+#contactsList .add {
+	position: absolute;
+	bottom: 0; left: 0; right: 0;
+	padding: 5px 10px;
+	background-color:#ccc; 
+}
+
 #contactDetails {
 	position: absolute;
 	left: 240px;
 	top: 20px;
 	width: 400px;
-	height: 500px;
+	height: 480px;
 	border: 1px solid #ccc;
+	padding: 10px;
 }
 
 #contactDetails label,
 #contactDetails input,
 #contactDetails textarea {
 	display: block;
+	margin-bottom: 10px;
 }
